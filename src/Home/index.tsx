@@ -1,5 +1,9 @@
+import { Profile } from "../components/Profile";
+
 export function Home() {
     return (
-        <h1 style={{ width: '100%' }}>Home page</h1>
+        <>
+            <Profile />
+        </>
     )
 }
