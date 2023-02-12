@@ -1,6 +1,18 @@
 import { useTheme } from "styled-components";
 import { ArrowUpRight, Building, GitHub, UserGroup } from "../Icons";
-import { Avatar, Body, Container, Description, Info, InfoFooter, InfoHeader, Item, Link, ListItems, Username } from "./styles";
+import {
+    Avatar,
+    Body,
+    Container,
+    Description,
+    Info,
+    InfoFooter,
+    InfoHeader,
+    Item,
+    Link,
+    ListItems,
+    Username
+} from "./styles";
 
 export function Profile() {
     const theme = useTheme();
