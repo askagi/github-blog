@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { githubApi } from "../services/githubApi";
 
 interface UserContextProviderProps {
@@ -20,6 +20,12 @@ interface IssuesItems {
     title: string;
     body: string;
     created_at: string;
+    number: number;
+    html_url: string;
+    comments: number;
+    assignee: {
+        login: string;
+    }
 }
 
 interface IssueType {
@@ -30,6 +36,9 @@ interface IssueType {
 interface UserContextType {
     user: UserType;
     issues: IssueType;
+    issue: IssuesItems;
+    fetchIssues: (query?: string) => void;
+    fetchIssueByParams: (params: string | undefined) => void;
 }
 
 export const UserContext = createContext({} as UserContextType);
@@ -38,13 +47,14 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
 
     const [user, setUser] = useState({} as UserType);
     const [issues, setIssues] = useState({} as IssueType);
+    const [issue, setIssue] = useState({} as IssuesItems)
 
 
     async function fetchUser() {
         try {
             const response = await githubApi.get('/users/askagi');
             setUser(response.data);
-            console.log(response.data);
+            // console.log(response.data);
 
 
         } catch (error) {
@@ -52,27 +62,52 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
         }
     }
 
-    async function fetchIssues() {
+
+    const fetchIssues = useCallback(async (query?: string) => {
+        const queryRepository = query + `repo:askagi/github-blog`
         try {
-            const response = await githubApi.get('/search/issues?q=repo:askagi/github-blog');
-            console.log(response.data);
+            const response = await githubApi.get(`/search/issues`, {
+                params: {
+                    q: queryRepository
+                }
+            });
+            // console.log(response.data);
             setIssues(response.data);
 
         } catch (error) {
             console.log(error);
 
         }
-    }
+    }, [])
+
+
+    const fetchIssueByParams = useCallback(async (params: string | undefined) => {
+        try {
+            const response = await githubApi.get(`/repos/askagi/github-blog/issues/${params}`);
+            console.log(response.data);
+            setIssue((state) => {
+                return { state, ...response.data }
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }, [issue]);
+
+
 
     useEffect(() => {
         fetchUser()
-        fetchIssues()
+        fetchIssues('')
     }, [])
 
     return (
         <UserContext.Provider value={{
             user,
-            issues
+            issues,
+            fetchIssues,
+            fetchIssueByParams,
+            issue
         }}
         >
             {children}

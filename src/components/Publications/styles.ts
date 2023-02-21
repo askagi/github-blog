@@ -34,6 +34,12 @@ export const Post = styled.div`
     padding: 3.2rem;
     background: ${({ theme }) => theme["base-post"]};
     border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.5s;
+
+    &:hover{
+        transform: scale(1.1);
+    }
 
     /* white-space: nowrap;
     overflow: hidden;
