@@ -1,102 +1,35 @@
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import { Descriptions } from "../Descriptions";
 import { Container, InputSearchComponent, Post, PublicationsContainer } from "./styles";
+import { formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 export function Publications() {
-    const text = "Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in ... JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn. Dynamic typing  JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types: let foo = 42; '// foo is now a number' foo = 'bar'; '// foo is now a tring'foo = true; '// foo is now a boolean'"
 
-    const formattedText = text.slice(0, 185) + '...';
+    const { issues } = useContext(UserContext)
     return (
         <Container>
-            <Descriptions title="Publicações" subtitle="6 publicações" />
+            <Descriptions title="Publicações" subtitle={`${issues.total_count} publicações`} />
             <InputSearchComponent type="text" placeholder="Buscar conteúdo" />
             <PublicationsContainer>
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
+                {issues.items.map((issue) => (
+                    <Post key={issue.title}>
+                        <Descriptions
+                            title={issue.title}
+                            subtitle={formatDistanceToNow(new Date(issue.created_at),
+                                {
+                                    addSuffix: true,
+                                    locale: ptBR,
+                                })}
+                        />
+                        <p>
+                            {issue.body.slice(0, 185) + '...'}
+                        </p>
 
-                </Post>
+                    </Post>
+                ))}
 
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
-
-                <Post>
-                    <Descriptions
-                        title="JavaScript data types and data structures"
-                        subtitle="Há 1 dia"
-                    />
-                    <p>
-                        {formattedText}
-                    </p>
-
-                </Post>
             </PublicationsContainer>
         </Container>
     )

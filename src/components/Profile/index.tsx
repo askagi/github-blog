@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useTheme } from "styled-components";
+import { UserContext } from "../../contexts/UserContext";
 import { ArrowUpRight, Building, GitHub, UserGroup } from "../Icons";
 import {
     Avatar,
@@ -16,35 +18,33 @@ import {
 
 export function Profile() {
     const theme = useTheme();
+    const { user } = useContext(UserContext);
     return (
         <Container>
             <Body>
-                <Avatar loading="lazy" src="https://github.com/askagi.png" />
+                <Avatar loading="lazy" src={user.avatar_url} />
                 <Info>
                     <InfoHeader>
-                        <Username>José Costa</Username>
-                        <Link href="#">
+                        <Username>{user.name}</Username>
+                        <Link href={user.html_url}>
                             github
                             <ArrowUpRight size={12} color={theme.blue} />
                         </Link>
                     </InfoHeader>
-                    <Description>
-                        Full Stack Developer | Bacharel em Sistemas de Informação.
-                        Baiano, viciado em escrever linhas de códigos e apaixonado pelas coisas simples da vida.
-                    </Description>
+                    <Description>{user.bio}</Description>
                     <InfoFooter>
                         <ListItems>
                             <Item>
                                 <GitHub size={18} color={theme["base-label"]} />
-                                Askagi
+                                {user.login}
                             </Item>
                             <Item>
                                 <Building size={18} color={theme["base-label"]} />
-                                Cubos Academy
+                                {user.company}
                             </Item>
                             <Item>
                                 <UserGroup size={18} color={theme["base-label"]} />
-                                20 seguidores
+                                {user.followers} seguidores
                             </Item>
                         </ListItems>
                     </InfoFooter>
