@@ -7,7 +7,7 @@ import { Router } from './routes'
 export function App() {
 
   return (
-    <Suspense fallback={<h2>Loding...</h2>}>
+    <Suspense fallback=''>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
         <Router />

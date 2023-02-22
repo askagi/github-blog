@@ -6,9 +6,10 @@ export const Container = styled.header`
 `;
 
 export const Main = styled.main`
-    max-width: 87rem;
+    max-width: 86.4rem;
     margin: 0 auto;
-    padding: 0 4rem;
+    padding-bottom: 5rem;
+    /* padding: 0 4rem; */
 `;
 
 
