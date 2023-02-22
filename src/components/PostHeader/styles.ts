@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -6,6 +7,20 @@ export const Container = styled.div`
     background: ${({ theme }) => theme["base-profile"]};
     border-radius: 10px;
     margin-top: calc(0px - 10rem - 6px);
+
+    a {
+        text-decoration: none;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.2rem;
+        line-height: 160%;
+        text-transform: uppercase;
+        color: ${({ theme }) => theme.blue};
+
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
 `;
 
 export const Body = styled.div`
@@ -35,7 +50,7 @@ export const Title = styled.h1`
     color: ${({ theme }) => theme["base-title"]};
 `;
 
-export const Link = styled.a`
+export const Linkcustom = styled(Link)`
     text-decoration: none;
     font-style: normal;
     font-weight: 700;

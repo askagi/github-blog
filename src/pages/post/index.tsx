@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
+import { Suspense, useContext, useEffect } from "react";
+import ReactMarkdown from 'react-markdown';
 import { useParams } from "react-router-dom";
 import { PostHeader } from "../../components/PostHeader";
 import { UserContext } from "../../contexts/UserContext";
 import { Body } from "./styles";
-import ReactMarkdown from 'react-markdown';
 
 export function PostPage() {
     const { fetchIssueByParams, issue } = useContext(UserContext);
@@ -15,7 +15,7 @@ export function PostPage() {
     }, [])
 
     return (
-        <>
+        <Suspense>
             <PostHeader
                 issue={issue}
             />
@@ -24,6 +24,6 @@ export function PostPage() {
                     {issue.body}
                 </ReactMarkdown>
             </Body>
-        </>
+        </Suspense>
     )
 }

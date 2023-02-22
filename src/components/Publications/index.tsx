@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { UserContext } from "../../contexts/UserContext";
 import { Descriptions } from "../Descriptions";
 import { Container, InputSearchComponent, Post, PublicationsContainer } from "./styles";
+import ReactMarkdown from 'react-markdown';
 
 
 const searchFormschema = yup.object().shape({
@@ -53,10 +54,9 @@ export function Publications() {
                                     locale: ptBR,
                                 })}
                         />
-                        <p>
+                        <ReactMarkdown>
                             {issue.body.slice(0, 185) + '...'}
-                        </p>
-
+                        </ReactMarkdown>
                     </Post>
                 ))}
 

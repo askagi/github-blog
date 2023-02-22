@@ -26,7 +26,7 @@ export function Profile() {
                 <Info>
                     <InfoHeader>
                         <Username>{user.name}</Username>
-                        <Link href={user.html_url}>
+                        <Link href={user.html_url} target='_blank'>
                             github
                             <ArrowUpRight size={12} color={theme.blue} />
                         </Link>

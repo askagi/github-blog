@@ -16,7 +16,7 @@ interface UserType {
     html_url: string;
 }
 
-interface IssuesItems {
+export interface IssuesItems {
     title: string;
     body: string;
     created_at: string;
