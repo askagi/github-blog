@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { useContext } from "react";
+import { createElement, useContext } from "react";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import * as yup from 'yup';
@@ -54,9 +54,11 @@ export function Publications() {
                                     locale: ptBR,
                                 })}
                         />
-                        <ReactMarkdown>
-                            {issue.body.slice(0, 185) + '...'}
-                        </ReactMarkdown>
+                        {issue.body && createElement(() => (
+                            <ReactMarkdown>
+                                {issue.body.slice(0, 185) + '...'}
+                            </ReactMarkdown>
+                        ))}
                     </Post>
                 ))}
 

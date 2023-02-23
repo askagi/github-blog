@@ -64,7 +64,7 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
 
 
     const fetchIssues = useCallback(async (query?: string) => {
-        const queryRepository = query + `repo:askagi/github-blog`
+        const queryRepository = query + `repo:askagi/github-blog is:blog`
         try {
             const response = await githubApi.get(`/search/issues`, {
                 params: {
